@@ -1,0 +1,360 @@
+
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body{
+    overflow: hidden;
+}
+
+:root {
+    --main-color: #d90000;
+    --nav-right: #650404;
+    --nav-font-color: #212A31;
+    }
+
+.responsive{
+    max-width: 1980px;
+    width: 100%;
+}
+
+#root{
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+}
+
+@media (max-width: 1980px) {
+    .responsive{
+        max-width: 1980px;
+    }
+
+    header{
+        width: 100%;
+        height: 6rem;
+        display: flex;
+        position: relative;
+    }
+
+    .HLeft{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: white;
+        width: 25%;
+        height: 100%;
+        clip-path: polygon(0 0, 100% 0, 90% 100%, 0% 100%);
+        position: absolute;
+        border-bottom: 3px solid #d90000;
+    }
+
+    .HLeft img{
+        margin-left: -15%;
+        width: 13rem;
+        height: 8rem;
+    }
+
+    .HRight{
+        background-color: var(--nav-right);
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: end;
+    }
+
+    .Overlap{
+        position: relative;
+        width: 100%;
+        height: 4rem;
+        display: flex;
+        align-items: center;
+    }
+
+    .NavBar{
+        background-color: white;
+        width: 100%;
+        position: fixed;
+        z-index: 5;
+    }
+
+    nav{
+        display: flex;
+        align-items: center;
+        width: 100%;
+        height: 80%;
+        background-color: white;
+    }
+
+    nav ul{
+        display: flex;
+        width: 100%;
+        margin-left: 10%;
+    }
+    
+    nav ul a{
+        text-decoration: none;
+    }
+
+    nav ul li:hover{
+        color: #bc0202;
+    }
+
+    nav ul li{
+        padding: 2rem 3rem;
+        list-style: none;
+        font-family: "Poppins", sans-serif;
+        font-weight: 600;
+        color: var(--nav-font-color);
+        font-style: normal;
+    }
+
+    .social-links{
+        background-color: #d90000;
+        width:25%;
+        height: 5rem;
+        clip-path: polygon(0% 0, 100% 0, 100% 100%, 10% 100%);
+        border-bottom-left-radius: 10px;
+        border-top-left-radius: 10px;
+        position: absolute;
+        right: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 4;
+        
+    }
+    .social-links button{
+        width: 8rem;
+        font-family: "Poppins", sans-serif;
+        font-weight: 600;
+    }
+
+    .social-links a{
+        margin-left: 3%;
+    }
+
+    #SignUp-btn{
+        padding: 0.5rem 1rem;
+        border: none;
+        background-color: white;
+        color: #d90000;
+        border-radius: 5px;
+    }
+
+    #SignUp-btn:hover{
+        cursor: pointer;
+        background-color: #bc0202;
+        color: white;
+    }
+
+    #Login-btn{
+        padding: 0.5rem 1rem;
+        border: 1px solid #d90000;
+        background-color: #650404;
+        border-radius: 5px;
+        color: white;
+    }
+
+    #Login-btn:hover{
+        cursor: pointer;
+        background-color: #880e0e;
+    }
+
+    .HR-Info{
+        display: flex;
+        height: 90%;
+        padding: 1rem;
+        align-items: center;
+        color: white;
+        font-family: "Poppins", sans-serif;
+    }
+
+    .FB-Logo{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 2rem;
+        object-fit: cover;
+    }
+
+    .FB-Logo img{
+        width: 2.3rem;
+        height: 2.3rem;
+    }
+
+    .HR-Content{    
+        display: flex;
+        align-items: center;
+        width: 50rem;
+        height: 100%;
+        margin-right: 4rem;
+        justify-content: space-around;
+    }
+
+    .HRI-Top{
+        padding-left: 1rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        text-align: left;
+    }
+
+    .HRI-Top p{
+        font-size: clamp(0.8rem, 1vw, 0.9rem);
+    }
+
+    .HRI-Top span{
+        font-size: clamp(0.8rem, 1vw, 0.7rem);
+    }
+
+    #CoverSection{
+        width: 100%;
+        height: 65rem;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    #CoverSection img{
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .CS-Overlay{
+        width: 100%;
+        height: 100%;
+        background-color: #101319a7;
+        z-index: 2;
+        position: absolute;
+        display: flex;
+        opacity: 70%;
+    }
+
+    .CS-Messages{
+        width: 100%;
+        height: 50rem;
+        position: absolute;
+        z-index: 3;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding-left: 12rem;
+    }
+
+    .CS-Messages h1{
+        line-height: 6rem;
+        width: 50%;
+        color: white;
+        font-family: "Poppins", sans-serif;
+        font-size: clamp(5.5rem, 4vw, 5.5rem);
+        margin-bottom: 1%;
+    }
+
+    .CS-Messages p{
+        text-align: justify;
+        width: 50%;
+        color: rgb(227, 227, 227);
+        font-family: "Poppins", sans-serif;
+        font-size: clamp(1.2rem, 2vw, 1.2rem);
+    }
+
+    /* ------------------Login ----------------------------*/
+
+    .container{
+        max-width: 30rem;
+        width: 100%;
+        background: #fff;
+        border-radius: 7px;
+        box-shadow: 0 5px 10px rgba(0,0,0,0.3);
+        font-family: "Poppins", sans-serif; 
+    }
+    
+    #login-form header{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        font-size: clamp(2rem, 2vw, 1rem);
+    }
+
+    .container .registration{
+        display: none;
+    }
+
+    #check:checked ~ .registration{
+        display: block;
+    }
+
+    #check:checked ~ .login{
+        display: none;
+    }
+
+    #check{
+        display: none;
+    }
+
+    .container .form{
+        padding: 2rem;
+    }
+
+    .form header{
+        font-size: 2rem;
+        font-weight: 500;
+        text-align: center;
+        margin-bottom: 1.5rem;
+    }
+
+    .form input{
+        height: 3.2rem;
+        width: 100%;
+        padding: 0 15px;
+        font-size: 17px;
+        margin-bottom: 1.3rem;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        outline: none;
+    }
+
+    .form input:focus{
+        box-shadow: 0 1px 0 rgba(0,0,0,0.2);
+    }
+
+    .form a{
+        font-size: 16px;
+        color: #d90000;
+        text-decoration: none;
+    }
+
+    .form a:hover{
+        text-decoration: underline;
+    }
+
+    .form input.button{
+        color: #fff;
+        background: #bc0202;
+        font-size: 1.2rem;
+        font-weight: 500;
+        letter-spacing: 1px;
+        margin-top: 1.7rem;
+        cursor: pointer;
+        transition: 0.4s;
+    }
+    .form input.button:hover{
+        background: #650404;
+    }
+    .signup{
+        font-size: 17px;
+        text-align: center;
+    }
+    .signup a{
+        color: #d90000;
+        cursor: pointer;
+    }
+    .signup a:hover{
+        text-decoration: underline;
+    }
+}

@@ -1,0 +1,39 @@
+
+{% extends "master.html" %}
+{% load static %}
+{% block css %}
+    <link rel="stylesheet" href="{% static '/login.css' %}">
+{% endblock %}
+
+{% block content%}
+<div id="root">
+    <div class="responsive">
+
+        {% include "nav.html" %}
+
+        <!------------------------------------------- Sections -------------------------------------------->
+        <section id="CoverSection">
+            <div class="container">
+                <input type="checkbox" id="check">
+                <div class="login form" id="login-form">
+                <header>Register</header>
+                <form action="#">
+                    <input type="text" placeholder="Enter your first name">
+                    <input type="text" placeholder="Enter your last name">
+                    <input type="text" placeholder="Enter your email">
+                    <input type="password" placeholder="Enter your password">
+                    <input type="button" class="button" value="Login">
+                </form>
+                <div class="signup">
+                    <span class="signup">Already have an account?
+                    <a href="{% url 'login' %}">Login</a>
+                    </span>
+                </div>
+            </div>
+        </section>
+
+        
+    </div>
+</div>
+{% endblock %}
+
