@@ -3,22 +3,26 @@
 {% load static %}
 {% block css %}
     <link rel="stylesheet" href="{% static '/index.css' %}">
+    <script type="module" src="{% static 'js/modal.js' %}"></script>
 {% endblock %}
 
 {% block content%}
-<div id="root">
-    <div class="responsive">
 
-        {% include "nav.html" %}
+{% include "accounts/login.html" %}
+{% include "accounts/signup.html" %}
+{% include "nav.html" %}
+<div id="root">
+
+    <div class="responsive">
 
         <!------------------------------------------- Sections -------------------------------------------->
         <section id="CoverSection">
             <div class="CS-Messages">
-                <h1>Effective Wiring Solutions</h1>
+                <h1>Effective Installation Services</h1>
                 <p>Discover the Perfection's Power! With Our Superior Electrical Installations, You Can Transform Your Space. Put your trust in our skilled experts to wire your house with ease, guaranteeing efficiency, safety, and good looks. Get in touch with us right now, and together, let's start improving your home or place of business!</p>
             </div>
             <div class="CS-Overlay"></div>
-            <img src="https://ik.imagekit.io/to96kinpc/B08B0513-D80C-4530-80AF-140EC35B3881.jpeg/tr:q-100,tr:w-1000,h-700" alt="">
+            <img src="https://ik.imagekit.io/to96kinpc/pexels-mart-production-7641361(1).jpg/tr:q-90,tr:w-1980,h-1080" alt="">
         </section>
 
         <section id="AboutSection">
@@ -88,7 +92,7 @@
             </div>
 
             <div class="SS-Bottom">
-                
+
                 <div class="SSB-Content">
                     <div class="SSC-Top">
                         <h1>What We Offer</h1>
@@ -212,7 +216,7 @@
             </div>
         </section>
 
-        
+
     </div>
 </div>
 {% endblock %}

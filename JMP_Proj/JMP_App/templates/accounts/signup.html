@@ -1,39 +1,33 @@
-
-{% extends "master.html" %}
 {% load static %}
-{% block css %}
-    <link rel="stylesheet" href="{% static '/login.css' %}">
-{% endblock %}
 
-{% block content%}
-<div id="root">
-    <div class="responsive">
-
-        {% include "nav.html" %}
-
-        <!------------------------------------------- Sections -------------------------------------------->
-        <section id="CoverSection">
-            <div class="container">
-                <input type="checkbox" id="check">
-                <div class="login form" id="login-form">
-                <header>Register</header>
-                <form action="#">
-                    <input type="text" placeholder="Enter your first name">
-                    <input type="text" placeholder="Enter your last name">
-                    <input type="text" placeholder="Enter your email">
-                    <input type="password" placeholder="Enter your password">
-                    <input type="button" class="button" value="Login">
-                </form>
-                <div class="signup">
-                    <span class="signup">Already have an account?
-                    <a href="{% url 'login' %}">Login</a>
-                    </span>
-                </div>
+    <div id="SignUp-Overlay">
+        <div class="container-SignUp">
+            <div class="LC-Top">
+                <h2>Create account</h2>
+                <p>Let`s get Started!</p>
             </div>
-        </section>
+            <div class="LC-Mid">
+                <label>First Name</label>
+                <input id="Email-lgn" type="text" placeholder="Enter your firstname" required>
+                <label>Last Name</label>
+                <input id="Pass-lgn" type="password" placeholder="Enter your password" required>
+                <label>Email</label>
+                <input id="Email-lgn" type="email" placeholder="Enter your email" required>
+                <label>Password</label>
+                <input id="Pass-lgn" type="password" placeholder="Enter your password" required>
+                <label>Confirm Password</label>
+                <input id="Pass-lgn" type="password" placeholder="Enter your password" required>
+            </div>
+            <div class="LC-Bottom">
+                <button id="SignIn-btn">Register</button>
+                <button id="SignIn-Google"><img src="../static/images/google.png">Sign In with Google</button>
+            </div>
 
-        
+            <div class="LC-Bottom2">
+                <span class="signup">Don't have an account?
+                <span>Sign up</span>
+            </div>
+        </div>
     </div>
-</div>
-{% endblock %}
+
 
