@@ -1,17 +1,18 @@
-
 {% extends "master.html" %}
 {% load static %}
 {% block css %}
     <link rel="stylesheet" href="{% static '/admin.css' %}">
+    <script type="module" src="{% static 'js/services.js' %}"></script>
 {% endblock %}
 
 {% block content%}
+{% include "./modal/createService.html" %}
   <div id="root">
        {% include "admin_nav.html" %}  
        <div class="PanelMid">
           <div class="PLM-Top"> 
              <div class="PMLT-Left">
-               <h3>Dashboard</h3>
+               <h3>Services</h3>
 
               </div> 
              <div class="PMLT-Right">
@@ -22,7 +23,16 @@
                 <div class="PLM-ImgDiv"><img src="../../static/images/Assignment-Ind-Fill--Streamline-Rounded-Fill---Material-Symbols.png" alt=""></div> 
                 <span>Admin</span> 
              </div> 
-          </div>  
+          </div>
+
+          <div class="PLM-Mid">
+            <div class"PLMM-Top">
+                <button id="AddServiceBtn">Add Service</button>
+                <span>Total Services: </span>
+            </div>
+            
+          </div>
       </div>
+ 
   </div>
 {% endblock %}
