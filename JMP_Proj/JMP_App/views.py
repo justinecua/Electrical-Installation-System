@@ -3,9 +3,21 @@ from django.contrib.auth import authenticate, login
 import json
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.models import User
+from .models import Services
 from django.http import JsonResponse
 from datetime import datetime
 import pytz
+from .helpers import ImagekitClient
+from imagekitio import ImageKit
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+imagekit = ImageKit(
+    public_key=os.getenv('IMAGEKIT_PUBLIC_KEY'),
+    private_key=os.getenv('IMAGEKIT_PRIVATE_KEY'),
+    url_endpoint=os.getenv('IMAGEKIT_URL_ENDPOINT')
+)
 
 def home(request):
     return render(request, 'index.html')
@@ -28,9 +40,18 @@ def adminAccounts(request):
 def adminServices(request):
     manila_timezone = pytz.timezone('Asia/Manila')
     current_datetime = datetime.now(manila_timezone)
+    services = Services.objects.values()
+    totalServices = Services.objects.count()
+
+    for service in services:
+        service['date'] = service['date'].strftime("%b %d, %Y")
+
     context = {
-        'date': current_datetime.strftime("%B %d, %Y %I:%M %p")
+        'date': current_datetime.strftime("%b %d, %Y %I:%M %p"),
+        'services': services,
+        'totalServices': totalServices
     }
+    
 
     return render(request, 'admin_services.html', context)
 
@@ -98,58 +119,53 @@ def validatelogin(request):
 
 
 @csrf_exempt
-def handle_media(request):
+def saveService(request):
     if request.method == 'POST':
-        data = json.loads(request.body)
-        accID = data.get("accID")
-        audience = data.get("audience")
-        caption = data.get("caption")
-        tag_list = data.get("tags", [])
+        form_data = json.loads(request.POST['data'])
+        serviceIcon = request.FILES.get('serviceIcon')
 
+        serviceName = form_data.get('serviceName')
+        serviceDesc = form_data.get('serviceDesc')
+        servicePrice = form_data.get('servicePrice')
+
+        imgkit = ImagekitClient(serviceIcon)
+        result = imgkit.upload_media_file()
+        serviceIcon_url = result["url"]
+        serviceIcon_id = result["fileId"]
         
-        new_service = Post.objects.create(
-            account=accFK,
-            audience=AudienceFK,
-            caption=caption,
-        )
-
-    
-        for name, base64_data in zip(photo_names, photo_base64_data):
-            image_data = base64.b64decode(base64_data)
-            content_file = ContentFile(image_data, name=name)
-
-            imgkit = ImagekitClient(content_file)
-            Photoresult = imgkit.upload_media_file()
-            photo_link = Photoresult["url"]
-
-            Photo.objects.create(
-                link=photo_link,
-                post=new_post,
+        newService = Services.objects.create(
+                name=serviceName,
+                description=serviceDesc,
+                icon=serviceIcon_url,
+                icon_file_id = serviceIcon_id,
+                price=servicePrice,
             )
-
-        
-        photos = list(Photo.objects.filter(post=new_post).values())
-
-        currentTime = datetime.now()
-        postDate = new_post.dateTime
-
+        newService_date = newService.date.strftime("%b %d, %Y") 
         context = {
-            'status': 'success',
-            'message': 'Successfully posted!',
-            'userId': request.user.id,
-            'accId': account_id,
-            'firstname': account_firstname,
-            'username': account_username,
-            'profile_photo': account_profile_photo,
-            'post_id': new_post.id,
-            'caption': caption,
-            'time': post_time,
-            'photos': photos,
-            'tags': tags,
-            'comment_count': comment_count,
-            'glows_count': glows_count,
-            'has_liked': has_liked,
+            'serviceId': newService.id,
+            'serviceIcon': newService.icon,
+            'serviceDesc': newService.description,
+            'serviceName': newService.name,
+            'servicePrice': newService.price,
+            'serviceDate': newService_date,
         }
 
-        return JsonResponse( context, encoder = DjangoJSONEncoder)
-    return JsonResponse({"status": "error", "message": "Only POST method is accepted"})
+        return JsonResponse({"status": "success", "message": "Service added successfully!", 'service': context})
+    else:
+        return JsonResponse({"status": "error", "message": "Only POST requests are allowed."})
+
+@csrf_exempt
+def deleteService(request, serviceId):
+    try:
+        service = Services.objects.get(id=serviceId)
+        imagekit.delete_file(file_id=service.icon_file_id)
+        service.delete()
+        
+        return JsonResponse({"status": "success", "message": "Deleted successfully!"})
+    
+    except Services.DoesNotExist:
+        return JsonResponse({"status": "error", "message": "Service does not exist."}, status=404)
+    
+    except Exception as e:
+        return JsonResponse({"status": "error", "message": str(e)}, status=500)
+    

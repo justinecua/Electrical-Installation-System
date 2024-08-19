@@ -10,9 +10,16 @@
   --hover-tabs: #DBE0FF;
   --font-color: #5E6F88;
   --img-bgcolor: #E9ECEF;
+  --img-bgcolor-hover: #BDBFC2;
   --bg-color: #F1EFF9;
   --normal-color: #FFFFFF;
   --input-border-color: #b8b8b8;
+  --edit-button-color: #E6F7ED;
+  --edit-button-hover: #C8F7CF;
+  --delete-button-color: #FEE4E4;
+  --delete-button-hover: #FECECE;
+  --mint-red: #F24A3D;
+  --mint-red-hover: #CF4731;
 }
 
 #root {
@@ -130,6 +137,7 @@ body {
   justify-content: space-between;
   align-items: center;
   font-size: clamp(0.9rem, 1vw, 0.9rem);
+  color: var(--button-color);
 }
 
 .PMLT-Right {
@@ -162,13 +170,35 @@ body {
   padding: 1rem;
   width: 98%;
   height: 91%;
+  overflow-y: auto;
 }
 
 .PLMM-Top {
   display: flex;
   padding: 1rem;
+  width: 10%;
+  height: 3rem;
+}
+
+.ServicesTopNav {
+  width: 50%;
+}
+
+.ServicesTopNav2 {
+  display: flex;
+  justify-content: end;
+  width: 50%;
+}
+
+.ServicesTopNavP {
+  display: flex;
   width: 98%;
   height: 3rem;
+}
+
+.TotalServices {
+  color: var(--button-color);
+  font-weight: 600;
   font-family: "Poppins", sans-serif;
 }
 
@@ -249,6 +279,126 @@ body {
   animation: modal-out 0.3s ease-in-out;
 }
 
+
+#DelService-Overlay {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  backdrop-filter: blur(5px);
+  background-color: #24262aa7;
+  z-index: 8;
+}
+
+.DelcontainerService {
+
+  border-radius: 10px;
+  padding: 2rem;
+  background-color: white;
+  font-family: "Poppins", sans-serif;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 18px 50px -10px;
+  transform: translateY(-100%);
+  opacity: 1;
+  transition: all 0.3s ease-in-out;
+}
+
+.DelcontainerService.show {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+@keyframes modal-in {
+  from {
+    transform: translateY(-10%);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes modal-out {
+  from {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  to {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+}
+
+.DelcontainerService.show {
+  animation: modal-in 0.3s ease-in-out;
+}
+
+.DelcontainerService:not(.show) {
+  animation: modal-out 0.3s ease-in-out;
+}
+
+.DelCS-Top {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.DelCS-Top h3 {
+  text-align: center;
+  font-size: clamp(1.1rem, 1vw, 1.1rem);
+  color: var(--button-color);
+}
+
+.DelCS-Top p {
+  text-align: center;
+  font-size: clamp(0.9rem, 1vw, 0.9rem);
+}
+
+.DelCS-Bottom {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 0.9rem;
+}
+
+.Del-Service {
+  padding: 0.4rem 2.9rem;
+  background-color: var(--mint-red);
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  margin-right: 1rem;
+  position: relative;
+}
+
+.Del-Service:hover {
+  background-color: var(--mint-red-hover);
+  cursor: pointer;
+}
+
+.Cancel-Service {
+  padding: 0.4rem 2.9rem;
+  background-color: var(--img-bgcolor);
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  color: var(--button-color);
+  border: none;
+  border-radius: 5px;
+}
+
+.Cancel-Service:hover {
+  background-color: var(--img-bgcolor-hover);
+  cursor: pointer;
+}
+
 .CS-Top {
   display: flex;
   justify-content: center;
@@ -305,7 +455,6 @@ input {
   border: none;
 }
 
-
 .loader3 {
   position: absolute;
   border: 0.2rem solid white;
@@ -319,6 +468,19 @@ input {
   display: none;
 }
 
+.loader4 {
+  position: absolute;
+  border: 0.2rem solid white;
+  border-top: 0.2rem solid var(--mint-red);
+  border-radius: 50%;
+  width: 1.2rem;
+  height: 1.2rem;
+  animation: spin 2s linear infinite;
+  top: 0.4rem;
+  right: 1rem;
+  display: none;
+}
+
 @keyframes spin {
   0% {
     transform: rotate(0deg);
@@ -327,4 +489,172 @@ input {
   100% {
     transform: rotate(360deg);
   }
+}
+
+#message-service {
+  font-size: clamp(0.8rem, 0.9vw, 0.8rem);
+  color: var(--button-color);
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  padding: 1rem 1.8rem;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  background-color: var(--img-bgcolor);
+  border-radius: 10px;
+  border: 1px solid var(--button-color);
+  right: 1rem;
+  bottom: 1.5rem;
+  transition: all 0.3s ease-in-out;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 10px 20px -5px;
+}
+
+#message-service img {
+  width: 1.7rem;
+  height: 1.7rem;
+  margin-right: 0.6rem;
+  object-fit: cover;
+}
+
+#message-service.show {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+@keyframes modal-in {
+  from {
+    transform: translateY(-10%);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes modal-out {
+  from {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  to {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+}
+
+#message-service.show {
+  animation: modal-in 0.3s ease-in-out;
+}
+
+#message-service:not(.show) {
+  animation: modal-out 0.3s ease-in-out;
+}
+
+.PLMM-Mid {
+  width: 100%;
+  display: grid;
+  row-gap: 1rem;
+  grid-template-columns: repeat(4, 1fr);
+  padding: 1rem;
+}
+
+.SC-Options {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  top: 0;
+  justify-content: end;
+  width: 100%;
+  height: 3rem;
+}
+
+.SC-Edit {
+  background-color: var(--edit-button-color);
+  border-radius: 50%;
+  margin-right: 0.4rem;
+  cursor: pointer;
+  padding: 0.6rem;
+  width: 2.6rem;
+  height: 2.6rem;
+}
+
+.SC-Edit:hover {
+  background-color: var(--edit-button-hover);
+}
+
+.SC-Delete {
+  padding: 0.6rem;
+  width: 2.6rem;
+  height: 2.6rem;
+  background-color: var(--delete-button-color);
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.SC-Delete:hover {
+  background-color: var(--delete-button-hover);
+}
+
+.Service-Container {
+  position: relative;
+  border-radius: 10px;
+  padding: 2rem;
+  width: 21rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-family: "Poppins", sans-serif;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 10px 20px -5px;
+}
+
+.Service-Container h3 {
+  font-size: clamp(1rem, 1vw, 0.9rem);
+  color: var(--button-color);
+  width: 90%;
+  text-align: center;
+}
+
+.Service-Container p {
+  width: 100%;
+  overflow-y: auto;
+  height: 6rem;
+  margin-top: 0.7rem;
+  font-size: clamp(0.9rem, 1vw, 0.8rem);
+  text-align: justify;
+  color: var(--button-color);
+}
+
+.Service-Container span {
+  margin-top: 0.2rem;
+  text-align: justify;
+}
+
+.SC-Icon {
+  margin-bottom: 0.5rem;
+  width: 4rem;
+  height: 4rem;
+  object-fit: cover;
+}
+
+.SC-Price {
+  display: inline-block;
+  white-space: nowrap;
+  color: var(--button-color);
+  font-weight: 600;
+  border-radius: 15px;
+  font-size: clamp(0.8rem, 1vw, 0.8rem);
+  padding: 0.5rem 0.9rem;
+  background-color: var(--img-bgcolor);
+}
+
+.PLMM-MidSub {
+  display: flex;
+  justify-content: space-evenly;
+  width: 100%;
+  text-align: center;
 }

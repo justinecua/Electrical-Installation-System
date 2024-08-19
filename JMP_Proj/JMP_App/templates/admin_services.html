@@ -7,7 +7,8 @@
 
 {% block content%}
 {% include "./modal/createService.html" %}
-  <div id="root">
+{% include "./modal/deleteService.html" %}
+    <div id="root">
        {% include "admin_nav.html" %}  
        <div class="PanelMid">
           <div class="PLM-Top"> 
@@ -26,11 +27,38 @@
           </div>
 
           <div class="PLM-Mid">
-            <div class"PLMM-Top">
-                <button id="AddServiceBtn">Add Service</button>
-                <span>Total Services: </span>
+            <div class="ServicesTopNavP">
+              <div class="ServicesTopNav">
+                <button id="AddServiceBtn">Add Service</button> 
+              </div>
+              <div class="ServicesTopNav2">
+                {% if totalServices %}
+                  <span class="TotalServices">Total Services: </span><span class="TotalServices">&nbsp;{{ totalServices }}</span>
+                {% endif %} 
+              </div>
+                  
             </div>
             
+            <div class="PLMM-Mid">
+              {% if services %}
+                  {% for service in services %}
+                <div class="Service-Container">
+                    <div class="SC-Options">
+                        <img class="SC-Edit" src="../../static/images/Edit-4-Line--Streamline-Mingcute.png" alt="">
+                        <img class="SC-Delete" data-serviceId="{{ service.id }}" src="../../static/images/Delete-3-Line--Streamline-Mingcute.png" alt="">
+                    </div>
+                    <img class="SC-Icon" src="{{ service.icon }}" alt="">
+                    <h3> {{ service.name }}</h3>
+                    <p>{{ service.description }}</p>
+
+                    <div class="PLMM-MidSub">
+                      <span class="SC-Price"> Price: ₱{{ service.price }}</span> 
+                      <span class="SC-Price">On: {{ service.date }}</span>
+                    </div> 
+                 </div>
+                  {% endfor %}
+              {% endif %}
+            </div>
           </div>
       </div>
  

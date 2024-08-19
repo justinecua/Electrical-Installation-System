@@ -13,6 +13,7 @@ class Services(models.Model):
     name = models.CharField(null=True, max_length=150)
     description = models.CharField(null=True, max_length=500)
     icon = models.URLField(verbose_name="File Url")
+    icon_file_id = models.CharField(max_length=255, null=True, blank=True)
     price = models.CharField(null=True, max_length=50)
     date = models.DateTimeField(auto_now_add=True, null=True, max_length=75)
     
