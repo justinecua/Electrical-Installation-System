@@ -579,6 +579,18 @@ body {
   border: none;
 }
 
+#SubmitCaption {
+  background-color: var(--button-color);
+  color: white;
+  font-family: "Poppins", sans-serif;
+  cursor: pointer;
+  font-weight: 600;
+  padding: 0.6rem 4rem;
+  border-radius: 5px;
+  position: relative;
+  border: none;
+}
+
 .loader3 {
   position: absolute;
   border: 0.2rem solid white;
@@ -605,6 +617,19 @@ body {
   display: none;
 }
 
+.loader5 {
+  position: absolute;
+  border: 0.2rem solid white;
+  border-top: 0.2rem solid var(--mint-red);
+  border-radius: 50%;
+  width: 1.2rem;
+  height: 1.2rem;
+  animation: spin 2s linear infinite;
+  top: 0.4rem;
+  right: 1rem;
+  display: none;
+}
+
 @keyframes spin {
   0% {
     transform: rotate(0deg);
@@ -613,6 +638,30 @@ body {
   100% {
     transform: rotate(360deg);
   }
+}
+
+#message-service2 {
+  font-size: clamp(0.8rem, 0.9vw, 0.8rem);
+  color: var(--button-color);
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  padding: 1.2rem 1.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  background-color: var(--img-bgcolor);
+  border-radius: 10px;
+  border: 1px solid var(--button-color);
+  right: 1rem;
+  bottom: 1.5rem;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 10px 20px -5px;
+}
+
+.show2 {
+  opacity: 1;
 }
 
 #message-service {

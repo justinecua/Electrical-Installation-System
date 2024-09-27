@@ -60,6 +60,7 @@ MIDDLEWARE = [
     'kolo.middleware.KoloMiddleware',
 ]
 
+MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
 ROOT_URLCONF = 'JMP_Proj.urls'
 
 TEMPLATES = [

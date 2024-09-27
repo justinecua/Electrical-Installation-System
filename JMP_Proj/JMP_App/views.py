@@ -1,9 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 import json
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.models import User
-from .models import Services, Account
+from .models import Services, Account, Projects
 from django.http import JsonResponse
 from datetime import datetime
 import pytz
@@ -11,6 +11,7 @@ from .helpers import ImagekitClient
 from imagekitio import ImageKit
 from dotenv import load_dotenv
 import os
+from django.contrib import messages
 
 load_dotenv()
 imagekit = ImageKit(
@@ -61,7 +62,10 @@ def adminPayments(request):
     return render(request, 'admin_payments.html')
 
 def adminProjects(request):
-    return render(request, 'admin_projects.html')
+    context = {
+        'messages': messages.get_messages(request), 
+    }
+    return render(request, 'admin_projects.html', context)
 
 @csrf_exempt
 def signup(request):
@@ -155,6 +159,40 @@ def saveService(request):
         return JsonResponse({"status": "success", "message": "Service added successfully!", 'service': context})
     else:
         return JsonResponse({"status": "error", "message": "Only POST requests are allowed."})
+
+
+@csrf_exempt
+def saveProject(request):
+    if request.method == 'POST':
+        project_caption = request.POST.get('caption')
+        project_picture = request.FILES.get('project_picture')
+
+        if not project_caption or not project_picture:
+            messages.error(request, "Caption and photo are required.")
+            return redirect('adminProjects')  # Redirect to adminProjects
+        
+        try:
+            imgkit = ImagekitClient(project_picture)
+            result = imgkit.upload_media_file()
+            project_picture_url = result["url"]
+            project_picture_id = result["fileId"]
+
+            new_project = Projects.objects.create(
+                caption=project_caption,
+                project_picture=project_picture_url,
+                project_picture_id=project_picture_id
+            )
+            
+            messages.success(request, "Project added successfully!")
+            return redirect('adminProjects')  # Redirect to adminProjects
+
+        except Exception as e:
+            messages.error(request, f"An error occurred: {str(e)}")
+            return redirect('adminProjects')  # Redirect to adminProjects
+
+    else:
+        messages.error(request, "Only POST requests are allowed.")
+        return redirect('adminProjects')  # Redirect to adminProjects
 
 @csrf_exempt
 def deleteService(request, serviceId):

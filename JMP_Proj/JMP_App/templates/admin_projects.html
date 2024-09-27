@@ -3,11 +3,23 @@
 {% block css %}
     <link rel="stylesheet" href="{% static '/admin.css' %}">
     <script type="module" src="{% static 'js/projects.js' %}"></script>
+    <script type="module" src="{% static 'js/message.js' %}"></script> 
 {% endblock %}
 
 {% block content%}
 {% include "./modal/createProject.html" %}
   <div id="root">
+
+    {% if messages %}
+      <div id="message-service2">
+        {% for message in messages %}
+          <div class="{% if message.tags %}{{ message.tags }}{% endif %}">
+            <p id="MS-Message">{{ message }}</p>
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+
        {% include "admin_nav.html" %}
        <div class="PanelMid">
           <div class="PLM-Top">

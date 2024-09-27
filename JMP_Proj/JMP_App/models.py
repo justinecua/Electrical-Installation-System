@@ -20,3 +20,11 @@ class Services(models.Model):
     def __str__(self):
         return f"{self.name}"
 
+class Projects(models.Model):
+    caption = models.CharField(null=True, max_length=950) 
+    project_picture = models.URLField(verbose_name="File Url")
+    project_picture_id = models.CharField(max_length=255, null=True, blank=True) 
+    date = models.DateTimeField(auto_now_add=True, null=True, max_length=75)
+    
+    def __str__(self):
+        return f"{self.caption}"
