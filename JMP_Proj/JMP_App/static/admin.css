@@ -217,7 +217,36 @@ body {
   background-color: var(--hover-button);
 }
 
+#AddProjectsBtn {
+  margin-right: 2rem;
+  padding: 0.7rem 1.5rem;
+  border-radius: 5px;
+  border: none;
+  background-color: var(--button-color);
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+#AddProjectsBtn:hover {
+  background-color: var(--hover-button);
+}
+
+
 #Service-Overlay {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  backdrop-filter: blur(5px);
+  background-color: #24262aa7;
+  z-index: 8;
+}
+
+#Project-Overlay {
   width: 100%;
   height: 100%;
   position: fixed;
@@ -243,6 +272,23 @@ body {
 }
 
 .containerService.show {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.containerProject {
+  width: 30rem;
+  border-radius: 10px;
+  padding: 2rem;
+  background-color: white;
+  font-family: "Poppins", sans-serif;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 18px 50px -10px;
+  transform: translateY(-100%);
+  opacity: 1;
+  transition: all 0.3s ease-in-out;
+}
+
+.containerProject.show {
   transform: translateY(0);
   opacity: 1;
 }
@@ -279,6 +325,53 @@ body {
   animation: modal-out 0.3s ease-in-out;
 }
 
+.containerProject.show {
+  animation: modal-in 0.3s ease-in-out;
+}
+
+.containerProject:not(.show) {
+  animation: modal-out 0.3s ease-in-out;
+}
+
+
+
+#EService-Overlay {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  backdrop-filter: blur(5px);
+  background-color: #24262aa7;
+  z-index: 8;
+}
+
+.EcontainerService {
+  width: 30rem;
+  border-radius: 10px;
+  padding: 2rem;
+  background-color: white;
+  font-family: "Poppins", sans-serif;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 18px 50px -10px;
+  transform: translateY(-100%);
+  opacity: 1;
+  transition: all 0.3s ease-in-out;
+}
+
+.EcontainerService.show {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.EcontainerService.show {
+  animation: modal-in 0.3s ease-in-out;
+}
+
+.EcontainerService:not(.show) {
+  animation: modal-out 0.3s ease-in-out;
+}
 
 #DelService-Overlay {
   width: 100%;
@@ -412,10 +505,29 @@ body {
   width: 100%;
 }
 
-.CS-Mid label,
-input {
+.CS-Mid label {
   width: 100%;
 }
+
+.CS-Mid input {
+  width: 100%;
+}
+
+.ESIParent {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 1rem;
+}
+
+
+#EServiceIcon {
+  width: 7rem;
+  height: 7rem;
+  object-fit: cover;
+}
+
 
 .CS-Mid label {
 
@@ -444,6 +556,18 @@ input {
 }
 
 #SubmitService {
+  background-color: var(--button-color);
+  color: white;
+  font-family: "Poppins", sans-serif;
+  cursor: pointer;
+  font-weight: 600;
+  padding: 0.6rem 4rem;
+  border-radius: 5px;
+  position: relative;
+  border: none;
+}
+
+#ESubmitService {
   background-color: var(--button-color);
   color: white;
   font-family: "Poppins", sans-serif;

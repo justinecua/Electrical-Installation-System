@@ -92,124 +92,49 @@
             </div>
 
             <div class="SS-Bottom">
-
                 <div class="SSB-Content">
                     <div class="SSC-Top">
                         <h1>What We Offer</h1>
                     </div>
 
                     <div class="SSC-Bottom">
-
+                        {%if services %}
+                        {% for service in services %}
                         <div class="SSCB-Container">
                             <div class="SSBC-Top">
-                                <img src="../../static/images/Electric-Cord-1--Streamline-Flex.png" alt="">
+                                <img src="{{ service.icon }}" alt="">
                             </div>
                             <div class="SSBC-Bottom">
-                                <h2>Wiring and Rewiring (Residential/Commercial)</h2>
-                                <p>Installing and updating electrical wiring in homes and commercial buildings to ensure safety and compliance with current standards</p>
+                                <h2>{{ service.name }}</h2>
+                                <p>{{ service.description }}</p>
                                 <button>Book Service</button>
                             </div>
                         </div>
+                        {% endfor %}
+                        {% endif %}
 
-                        <div class="SSCB-Container">
-                            <div class="SSBC-Top">
-                                <img src="../../static/images/Electric-Cord-1--Streamline-Flex.png" alt="">
-                            </div>
-                            <div class="SSBC-Bottom">
-                                <h2>Lighting Fixture Installation</h2>
-                                <p>Installing various types of lighting fixtures to enhance the functionality and aesthetics of residential and commercial spaces</p>
-                                <button>Book Service</button>
-                            </div>
-                        </div>
+                    </div>
+                </div>
 
-                        <div class="SSCB-Container">
-                            <div class="SSBC-Top">
-                                <img src="../../static/images/Electric-Cord-1--Streamline-Flex.png" alt="">
-                            </div>
-                            <div class="SSBC-Bottom">
-                                <h2>Switch and Outlet Installation</h2>
-                                <p>Installing and replacing switches and outlets to improve electrical access and convenience in any setting</p>
-                                <button>Book Service</button>
-                            </div>
-                        </div>
+            </div>
+        </section>
 
-                        <div class="SSCB-Container">
-                            <div class="SSBC-Top">
-                                <img src="../../static/images/Electric-Cord-1--Streamline-Flex.png" alt="">
-                            </div>
-                            <div class="SSBC-Bottom">
-                                <h2>Smart Home Lock Installation</h2>
-                                <p>Setting up smart locks to enhance home security and provide convenient access control through modern technology</p>
-                                <button>Book Service</button>
-                            </div>
-                        </div>
+        <section id="ProjectsSection">
+            <div class="SS-Top">
+                <h1>Projects
+                    <div class="SS-Top2">
+                        <h1> ━━  Projects</h1>
+                    </div>
+                </h1>
+            </div>
 
-                        <div class="SSCB-Container">
-                            <div class="SSBC-Top">
-                                <img src="../../static/images/Electric-Cord-1--Streamline-Flex.png" alt="">
-                            </div>
-                            <div class="SSBC-Bottom">
-                                <h2>CCTV Installation</h2>
-                                <p>Installing CCTV systems to provide reliable surveillance and enhance security for homes and businesses</p>
-                                <button>Book Service</button>
-                            </div>
-                        </div>
+            <div class="SS-Bottom">
+                <div class="SSB-Content">
+                    <div class="SSC-Top">
+                        <h1>What We Do</h1>
+                    </div>
 
-                        <div class="SSCB-Container">
-                            <div class="SSBC-Top">
-                                <img src="../../static/images/Electric-Cord-1--Streamline-Flex.png" alt="">
-                            </div>
-                            <div class="SSBC-Bottom">
-                                <h2>Fire Alarm Installation</h2>
-                                <p>Installing fire alarm systems to ensure early detection of fire hazards, enhancing safety for occupants</p>
-                                <button>Book Service</button>
-                            </div>
-                        </div>
-
-                        <div class="SSCB-Container">
-                            <div class="SSBC-Top">
-                                <img src="../../static/images/Electric-Cord-1--Streamline-Flex.png" alt="">
-                            </div>
-                            <div class="SSBC-Bottom">
-                                <h2>Motor Gate Installation</h2>
-                                <p>Installing motorized gates to provide secure and convenient access to residential and commercial properties</p>
-                                <button>Book Service</button>
-                            </div>
-                        </div>
-
-                        <div class="SSCB-Container">
-                            <div class="SSBC-Top">
-                                <img src="../../static/images/Electric-Cord-1--Streamline-Flex.png" alt="">
-                            </div>
-                            <div class="SSBC-Bottom">
-                                <h2>Electrical Consultation</h2>
-                                <p>Offering expert advice and planning for electrical projects to ensure optimal design and implementation</p>
-                                <button>Book Service</button>
-                            </div>
-                        </div>
-
-                        <div class="SSCB-Container">
-                            <div class="SSBC-Top">
-                                <img src="../../static/images/Electric-Cord-1--Streamline-Flex.png" alt="">
-                            </div>
-                            <div class="SSBC-Bottom">
-                                <h2>Water Pump Installation</h2>
-                                <p>Installing water pumps to ensure efficient water supply and management for various applications</p>
-                                <button>Book Service</button>
-                            </div>
-                        </div>
-
-                        <div class="SSCB-Container">
-                            <div class="SSBC-Top">
-                                <img src="../../static/images/Electric-Cord-1--Streamline-Flex.png" alt="">
-                            </div>
-                            <div class="SSBC-Bottom">
-                                <h2>Customized Control Panel Switch</h2>
-                                <p>Designing and installing customized control panel switches tailored to specific needs and requirements for better control and automation</p>
-                                <button>Book Service</button>
-                            </div>
-                        </div>
-
+                    <div class="SSC-Bottom">
                     </div>
                 </div>
 

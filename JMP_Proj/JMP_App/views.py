@@ -3,7 +3,7 @@ from django.contrib.auth import authenticate, login
 import json
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.models import User
-from .models import Services
+from .models import Services, Account
 from django.http import JsonResponse
 from datetime import datetime
 import pytz
@@ -20,7 +20,11 @@ imagekit = ImageKit(
 )
 
 def home(request):
-    return render(request, 'index.html')
+    services = Services.objects.values()
+    context = {
+        'services': services,
+    }
+    return render(request, 'index.html', context)
 
 def dashboard(request):
     return render(request, 'dashboard.html')
@@ -51,8 +55,6 @@ def adminServices(request):
         'services': services,
         'totalServices': totalServices
     }
-    
-
     return render(request, 'admin_services.html', context)
 
 def adminPayments(request):
@@ -100,7 +102,7 @@ def validatelogin(request):
         data = json.loads(request.body)
         username = data.get('username')
         password = data.get('password')
-        
+
         try:
             user = User.objects.get(username=username)
         except User.DoesNotExist:
@@ -132,7 +134,7 @@ def saveService(request):
         result = imgkit.upload_media_file()
         serviceIcon_url = result["url"]
         serviceIcon_id = result["fileId"]
-        
+
         newService = Services.objects.create(
                 name=serviceName,
                 description=serviceDesc,
@@ -140,7 +142,7 @@ def saveService(request):
                 icon_file_id = serviceIcon_id,
                 price=servicePrice,
             )
-        newService_date = newService.date.strftime("%b %d, %Y") 
+        newService_date = newService.date.strftime("%b %d, %Y")
         context = {
             'serviceId': newService.id,
             'serviceIcon': newService.icon,
@@ -160,12 +162,34 @@ def deleteService(request, serviceId):
         service = Services.objects.get(id=serviceId)
         imagekit.delete_file(file_id=service.icon_file_id)
         service.delete()
-        
+
         return JsonResponse({"status": "success", "message": "Deleted successfully!"})
-    
+
     except Services.DoesNotExist:
         return JsonResponse({"status": "error", "message": "Service does not exist."}, status=404)
-    
+
     except Exception as e:
         return JsonResponse({"status": "error", "message": str(e)}, status=500)
-    
+
+@csrf_exempt
+def fetch4editService(request, serviceId):
+    try:
+        service = Services.objects.get(id=serviceId)
+
+        context = {
+            'name': service.name,
+            'description': service.description,
+            'icon': service.icon,
+            'icon_file_id': service.icon_file_id,
+            'price': service.price,
+            'date': service.date,
+        }
+        return JsonResponse({"status": "success", "context": context})
+    except Exception as e:
+        return JsonResponse({"status": "error", "message": str(e)}, status=500)
+
+
+def accounts(request):
+    all_accounts = Account.objects.values()
+    print(all_accounts)
+    return render(request, 'admin_accounts.html', {'accounts': all_accounts})

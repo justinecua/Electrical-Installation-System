@@ -2,37 +2,37 @@
 {% load static %}
 {% block css %}
     <link rel="stylesheet" href="{% static '/admin.css' %}">
-    <script type="module" src="{% static 'js/services.js' %}"></script>
+    <script type="module" src="{% static 'js/projects.js' %}"></script>
 {% endblock %}
 
 {% block content%}
-{% include "./modal/createService.html" %}
+{% include "./modal/createProject.html" %}
   <div id="root">
-       {% include "admin_nav.html" %}  
+       {% include "admin_nav.html" %}
        <div class="PanelMid">
-          <div class="PLM-Top"> 
+          <div class="PLM-Top">
              <div class="PMLT-Left">
                <h3>Projects</h3>
 
-              </div> 
+              </div>
              <div class="PMLT-Right">
-               {% if date %}
-               <p>{{ date }}</p> 
-               {% endif %}
-
-                <div class="PLM-ImgDiv"><img src="../../static/images/Assignment-Ind-Fill--Streamline-Rounded-Fill---Material-Symbols.png" alt=""></div> 
-                <span>Admin</span> 
-             </div> 
+                <div class="PLM-ImgDiv"><img src="../../static/images/Assignment-Ind-Fill--Streamline-Rounded-Fill---Material-Symbols.png" alt=""></div>
+                <span>Admin</span>
+             </div>
           </div>
 
           <div class="PLM-Mid">
-            <div class"PLMM-Top">
-                <button id="AddServiceBtn">Add Projects</button>
-                <span>Total Projects: </span>
+            <div class="ServicesTopNavP">
+              <div class="ServicesTopNav">
+                <button id="AddProjectsBtn">Add Projects</button>
+              </div>
+              <div class="ServicesTopNav2">
+                  <span class="TotalServices">Total Projects: </span><span class="TotalServices">&nbsp;</span>
+              </div>
+
             </div>
-            
           </div>
       </div>
- 
+
   </div>
 {% endblock %}

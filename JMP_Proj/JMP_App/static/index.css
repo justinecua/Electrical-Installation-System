@@ -25,10 +25,6 @@ body {
   height: 100vh;
 }
 
-@media (max-width: 1980px) {
-  .responsive {
-    max-width: 1980px;
-  }
 
   header {
     width: 100%;
@@ -412,6 +408,15 @@ body {
     flex-direction: column;
   }
 
+  #ProjectsSection {
+    margin-top: 6rem;
+    width: 100%;
+    height: 70rem;
+    display: flex;
+    flex-direction: column;
+  }
+
+
   .SS-Top {
     width: 100%;
     height: 12%;
@@ -520,7 +525,7 @@ body {
   }
 
   .SSBC-Top img {
-    display: none;
+    display: flex;
     width: 4.5rem;
     height: 4.5rem;
     object-fit: cover;
@@ -869,4 +874,3 @@ body {
       transform: rotate(360deg);
     }
   }
-}
