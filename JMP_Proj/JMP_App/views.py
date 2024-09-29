@@ -12,6 +12,8 @@ from imagekitio import ImageKit
 from dotenv import load_dotenv
 import os
 from django.contrib import messages
+from django.shortcuts import get_object_or_404
+
 
 load_dotenv()
 imagekit = ImageKit(
@@ -62,7 +64,18 @@ def adminPayments(request):
     return render(request, 'admin_payments.html')
 
 def adminProjects(request):
+    manila_timezone = pytz.timezone('Asia/Manila')
+    current_datetime = datetime.now(manila_timezone)
+    projects = Projects.objects.values()
+    projects_count = Projects.objects.count()
+
+    for project in projects:
+        project['date'] = project['date'].strftime("%b %d, %Y")
+        
     context = {
+        'totalProjects': projects_count,
+        'projects': projects,
+        'project_date': current_datetime.strftime("%b %d, %Y"),    
         'messages': messages.get_messages(request), 
     }
     return render(request, 'admin_projects.html', context)
@@ -162,39 +175,6 @@ def saveService(request):
 
 
 @csrf_exempt
-def saveProject(request):
-    if request.method == 'POST':
-        project_caption = request.POST.get('caption')
-        project_picture = request.FILES.get('project_picture')
-
-        if not project_caption or not project_picture:
-            messages.error(request, "Caption and photo are required.")
-            return redirect('adminProjects')  # Redirect to adminProjects
-        
-        try:
-            imgkit = ImagekitClient(project_picture)
-            result = imgkit.upload_media_file()
-            project_picture_url = result["url"]
-            project_picture_id = result["fileId"]
-
-            new_project = Projects.objects.create(
-                caption=project_caption,
-                project_picture=project_picture_url,
-                project_picture_id=project_picture_id
-            )
-            
-            messages.success(request, "Project added successfully!")
-            return redirect('adminProjects')  # Redirect to adminProjects
-
-        except Exception as e:
-            messages.error(request, f"An error occurred: {str(e)}")
-            return redirect('adminProjects')  # Redirect to adminProjects
-
-    else:
-        messages.error(request, "Only POST requests are allowed.")
-        return redirect('adminProjects')  # Redirect to adminProjects
-
-@csrf_exempt
 def deleteService(request, serviceId):
     try:
         service = Services.objects.get(id=serviceId)
@@ -231,3 +211,87 @@ def accounts(request):
     all_accounts = Account.objects.values()
     print(all_accounts)
     return render(request, 'admin_accounts.html', {'accounts': all_accounts})
+
+@csrf_exempt
+def saveProject(request):
+    if request.method == 'POST':
+        project_caption = request.POST.get('caption')
+        project_picture = request.FILES.get('project_picture')
+
+        if not project_caption or not project_picture:
+            messages.error(request, "Caption and photo are required.")
+            return redirect('adminProjects')  
+        
+        try:
+            imgkit = ImagekitClient(project_picture)
+            result = imgkit.upload_media_file()
+            project_picture_url = result["url"]
+            project_picture_id = result["fileId"]
+
+            new_project = Projects.objects.create(
+                caption=project_caption,
+                project_picture=project_picture_url,
+                project_picture_id=project_picture_id
+            )
+            
+            messages.success(request, "Project added successfully!")
+            return redirect('adminProjects')  
+
+        except Exception as e:
+            messages.error(request, f"An error occurred: {str(e)}")
+            return redirect('adminProjects')  
+
+    else:
+        messages.error(request, "Only POST requests are allowed.")
+        return redirect('adminProjects')  
+
+
+@csrf_exempt
+def editProject(request):
+    if request.method == 'POST':
+        project_id = request.POST.get('project_id')
+        project_caption = request.POST.get('caption')
+        project_picture = request.FILES.get('project_picture')
+
+        try:
+            project = Projects.objects.get(id=project_id)
+
+            if project_picture:
+                imgkit = ImagekitClient(project_picture)
+                result = imgkit.upload_media_file()
+                project.project_picture = result["url"]
+                project.project_picture_id = result["fileId"]
+
+            project.caption = project_caption
+            project.save()
+
+            messages.success(request, "Project updated successfully!")
+            return redirect('adminProjects')
+
+        except Projects.DoesNotExist:
+            messages.error(request, "Project not found.")
+            return redirect('adminProjects')
+
+        except Exception as e:
+            messages.error(request, f"An error occurred: {str(e)}")
+            return redirect('adminProjects')
+
+    else:
+        messages.error(request, "Only POST requests are allowed.")
+        return redirect('adminProjects')
+
+
+def deleteProject(request, project_id):
+    project = get_object_or_404(Projects, id=project_id)
+
+    try:
+        if project.project_picture_id:
+            imagekit.delete_file(file_id=project.project_picture_id)
+
+        project.delete()
+        messages.success(request, "Project deleted successfully.")
+        
+    except Exception as e:
+        messages.error(request, f"An error occurred while deleting the project: {str(e)}")
+
+    return redirect('adminProjects')

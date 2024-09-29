@@ -15,4 +15,6 @@ urlpatterns = [
     path('adminServices/deleteService/<int:serviceId>', views.deleteService, name="deleteService"),
     path('adminServices/fetch4editService/<int:serviceId>', views.fetch4editService, name="fetch4editService"),
     path('adminProjects/saveProject/', views.saveProject, name="saveProject"),
+    path('adminProjects/editProject/', views.editProject, name='editProject'),
+    path('adminProjects/delete_project/<int:project_id>/', views.deleteProject, name='deleteProject'),
 ]

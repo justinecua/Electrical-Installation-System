@@ -1,0 +1,25 @@
+{% load static %}
+
+<div id="EditProject-Overlay" style="display:none;">
+  <div class="containerEditProject">
+    <div class="CS-Top">
+      <h3>Edit Project</h3>
+    </div>
+    <form id="editProjectForm" action="{% url 'editProject' %}" method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+      <input type="hidden" name="project_id" id="editProjectId">
+      <div class="CS-Mid">
+        <label for="editProjectPhoto">Photo</label>
+        <input type="file" name="project_picture" id="editProjectPhoto">
+        <label for="editProjectCaption">Caption</label>
+        <textarea rows="" cols="" name="caption" id="editProjectCaption" placeholder="Enter Caption"></textarea>
+      </div>
+      <div class="CS-Bottom">
+        <button id="editProjectSubmit" type="submit">Submit
+          <div class="loader3"></div>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+

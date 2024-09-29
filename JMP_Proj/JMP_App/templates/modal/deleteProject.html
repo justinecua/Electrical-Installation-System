@@ -1,0 +1,18 @@
+{% load static %}
+<div id="DeleteProject-Overlay" style="display: none;">
+    <div class="containerDeleteProject">
+        <div class="DelCS-Top">
+            <h3>Are you sure you want to delete this project?</h3>
+            <p>This action is permanent and cannot be undone.</p>
+        </div>
+        <form id="deleteProjectForm" method="POST">
+            {% csrf_token %}
+            <input type="hidden" name="project_id" id="deleteProjectId">
+            <div class="DelCS-Bottom">
+                <button type="submit" class="Del-Project">Delete</button>
+                <button type="button" class="Cancel-Delete-Proj">Cancel</button>
+            </div>
+        </form>
+    </div>
+</div>
+

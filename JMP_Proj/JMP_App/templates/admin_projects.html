@@ -8,6 +8,8 @@
 
 {% block content%}
 {% include "./modal/createProject.html" %}
+{% include "./modal/editProject.html" %}
+{% include "./modal/deleteProject.html" %}
   <div id="root">
 
     {% if messages %}
@@ -38,12 +40,38 @@
               <div class="ServicesTopNav">
                 <button id="AddProjectsBtn">Add Projects</button>
               </div>
+               {% if projects %}
               <div class="ServicesTopNav2">
-                  <span class="TotalServices">Total Projects: </span><span class="TotalServices">&nbsp;</span>
+                <span class="TotalServices">Total Projects: {{ totalProjects }} </span><span class="TotalServices">&nbsp;</span>
               </div>
 
             </div>
+            <div class="PLMM-Mid">
+                
+                  {% for project in projects %}
+                    <div class="projectPhoto">
+                        <div class="DeleteProjParent" data-id="{{ project.id }}">
+                          <img src="../static/images/Delete-3-Line--Streamline-Mingcute.png" alt="">
+                        </div>
+                          {% with image=project.project_picture %}
+                        <img class="projectPhotoImg" src="{{ image|add:'/tr:q-90,tr:w-1280,q-90,h-720' }}" alt="">
+                        <div class="projectCaption">
+                          {%endwith %}
+                          <p>{{ project.caption|truncatechars:25 }}</p>
+                        </div>
+                        <div class="ProjectDate">
+                          <button class="ProjectEdit-Btn" data-id="{{ project.id }}" data-caption="{{ project.caption }}" data-image="{{ project.project_picture }}" type="button">Edit</button>
+                          <p>On: {{ project_date }}</p>
+                        </div>
+                    </div> 
+                    
+                  {% endfor %}
+              {% endif %}
+              </div>
           </div>
+
+          
+
       </div>
 
   </div>

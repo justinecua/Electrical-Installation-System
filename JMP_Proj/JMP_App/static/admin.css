@@ -271,6 +271,32 @@ body {
   transition: all 0.3s ease-in-out;
 }
 
+#EditProject-Overlay {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  backdrop-filter: blur(5px);
+  background-color: #24262aa7;
+  z-index: 8;
+}
+
+#DeleteProject-Overlay {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  backdrop-filter: blur(5px);
+  background-color: #24262aa7;
+  z-index: 8;
+}
+
 .containerService.show {
   transform: translateY(0);
   opacity: 1;
@@ -289,6 +315,40 @@ body {
 }
 
 .containerProject.show {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.containerEditProject {
+  width: 30rem;
+  border-radius: 10px;
+  padding: 2rem;
+  background-color: white;
+  font-family: "Poppins", sans-serif;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 18px 50px -10px;
+  transform: translateY(-100%);
+  opacity: 1;
+  transition: all 0.3s ease-in-out;
+}
+
+.containerEditProject.show {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.containerDeleteProject {
+  width: 30rem;
+  border-radius: 10px;
+  padding: 2rem;
+  background-color: white;
+  font-family: "Poppins", sans-serif;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 18px 50px -10px;
+  transform: translateY(-100%);
+  opacity: 1;
+  transition: all 0.3s ease-in-out;
+}
+
+.containerDeleteProject.show {
   transform: translateY(0);
   opacity: 1;
 }
@@ -333,7 +393,21 @@ body {
   animation: modal-out 0.3s ease-in-out;
 }
 
+.containerEditProject.show {
+  animation: modal-in 0.3s ease-in-out;
+}
 
+.containerEditProject:not(.show) {
+  animation: modal-out 0.3s ease-in-out;
+}
+
+.containerDeleteProject.show {
+  animation: modal-in 0.3s ease-in-out;
+}
+
+.containerDeleteProject:not(.show) {
+  animation: modal-out 0.3s ease-in-out;
+}
 
 #EService-Overlay {
   width: 100%;
@@ -492,6 +566,38 @@ body {
   cursor: pointer;
 }
 
+.Del-Project {
+  padding: 0.4rem 2.9rem;
+  background-color: var(--mint-red);
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  margin-right: 1rem;
+  position: relative;
+}
+
+.Del-Project:hover {
+  background-color: var(--mint-red-hover);
+  cursor: pointer;
+}
+
+.Cancel-Delete-Proj {
+  padding: 0.4rem 2.9rem;
+  background-color: var(--img-bgcolor);
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  color: var(--button-color);
+  border: none;
+  border-radius: 5px;
+}
+
+.Cancel-Service:hover {
+  background-color: var(--img-bgcolor-hover);
+  cursor: pointer;
+}
+
 .CS-Top {
   display: flex;
   justify-content: center;
@@ -513,6 +619,10 @@ body {
   width: 100%;
 }
 
+.CS-Mid textarea {
+  width: 100%;
+}
+
 .ESIParent {
   display: flex;
   justify-content: center;
@@ -530,7 +640,6 @@ body {
 
 
 .CS-Mid label {
-
   font-weight: 600;
   color: var(--button-color);
   padding-bottom: 0.8rem;
@@ -546,6 +655,19 @@ body {
   margin-top: 0.6rem;
   margin-bottom: 1rem;
   color: var(--nav-right);
+}
+
+.CS-Mid textarea {
+  outline: none;
+  border: 1px solid var(--input-border-color);
+  padding: 0.9rem 1rem;
+  border-radius: 5px;
+  margin-top: 0.6rem;
+  margin-bottom: 1rem;
+  color: var(--nav-right);
+  font-family: "Poppins", sans-serif;
+  height: 15rem;
+  max-height: 15rem;
 }
 
 .CS-Bottom {
@@ -580,6 +702,18 @@ body {
 }
 
 #SubmitCaption {
+  background-color: var(--button-color);
+  color: white;
+  font-family: "Poppins", sans-serif;
+  cursor: pointer;
+  font-weight: 600;
+  padding: 0.6rem 4rem;
+  border-radius: 5px;
+  position: relative;
+  border: none;
+}
+
+#editProjectSubmit {
   background-color: var(--button-color);
   color: white;
   font-family: "Poppins", sans-serif;
@@ -830,4 +964,98 @@ body {
   justify-content: space-evenly;
   width: 100%;
   text-align: center;
+}
+
+.projectPhoto {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  width: 100%;
+  max-width: 25rem;
+  overflow-wrap: break-word;
+  object-fit: cover;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 10px 20px -5px;
+}
+
+.DeleteProjParent img {
+  width: 100%;
+  height: 100%;
+  border-radius: 5px;
+  object-fit: cover;
+}
+
+.projectPhotoImg {
+  height: 20rem;
+  width: 100%;
+  object-fit: cover;
+}
+
+.projectCaption p {
+  width: 100%;
+  overflow-wrap: break-word;
+  margin-top: 0.7rem;
+  font-size: clamp(0.9rem, 1vw, 0.8rem);
+  text-align: center;
+  margin-top: 1rem;
+  color: var(--button-color);
+  font-family: "Poppins", sans-serif;
+  margin-bottom: 0.5rem;
+}
+
+.ProjectDate {
+  padding: 0.5rem 1rem;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.ProjectDate button {
+  width: 48%;
+}
+
+.ProjectEdit-Btn {
+  background-color: var(--img-bgcolor);
+  color: var(--button-color);
+  border-radius: 5px;
+  border: none;
+  font-weight: 600;
+  font-family: "Poppins", sans-serif;
+}
+
+.ProjectEdit-Btn:hover {
+  background-color: var(--hover-button);
+  color: white;
+  cursor: pointer;
+}
+
+.ProjectDate p {
+  display: inline-block;
+  width: 48%;
+  color: var(--button-color);
+  font-weight: 600;
+  border-radius: 15px;
+  font-size: clamp(0.8rem, 1vw, 0.8rem);
+  padding: 0.5rem 0.9rem;
+  background-color: var(--img-bgcolor);
+  font-family: "Poppins", sans-serif;
+  text-align: center;
+}
+
+.DeleteProjParent {
+  width: 2.4rem;
+  height: 2.4rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  position: absolute;
+  padding: 0.6rem;
+  right: 1rem;
+  background-color: var(--delete-button-color);
+}
+
+.DeleteProjParent:hover {
+  background-color: var(--delete-button-hover);
+  cursor: pointer;
 }
