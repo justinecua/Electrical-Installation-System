@@ -24,8 +24,10 @@ imagekit = ImageKit(
 
 def home(request):
     services = Services.objects.values()
+    projects = Projects.objects.values()
     context = {
         'services': services,
+        'projects': projects,
     }
     return render(request, 'index.html', context)
 
@@ -220,8 +222,12 @@ def saveProject(request):
 
         if not project_caption or not project_picture:
             messages.error(request, "Caption and photo are required.")
-            return redirect('adminProjects')  
-        
+            return redirect('adminProjects')
+
+        if project_picture.size > 5 * 1024 * 1024:
+            messages.error(request, "Image size must not exceed 10MB.")
+            return redirect('adminProjects')
+
         try:
             imgkit = ImagekitClient(project_picture)
             result = imgkit.upload_media_file()
@@ -233,18 +239,17 @@ def saveProject(request):
                 project_picture=project_picture_url,
                 project_picture_id=project_picture_id
             )
-            
+
             messages.success(request, "Project added successfully!")
-            return redirect('adminProjects')  
+            return redirect('adminProjects')
 
         except Exception as e:
             messages.error(request, f"An error occurred: {str(e)}")
-            return redirect('adminProjects')  
+            return redirect('adminProjects')
 
     else:
         messages.error(request, "Only POST requests are allowed.")
-        return redirect('adminProjects')  
-
+        return redirect('adminProjects')
 
 @csrf_exempt
 def editProject(request):

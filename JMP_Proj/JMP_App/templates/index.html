@@ -5,6 +5,9 @@
     <link rel="stylesheet" href="{% static '/index.css' %}">
     <script type="module" src="{% static 'js/authentication.js' %}"></script>
     <script type="module" src="{% static 'js/modal.js' %}"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
 {% endblock %}
 
 {% block content%}
@@ -120,29 +123,61 @@
         </section>
 
         <section id="ProjectsSection">
-            <div class="SS-Top">
-                <h1>Projects
-                    <div class="SS-Top2">
-                        <h1> ━━  Projects</h1>
-                    </div>
-                </h1>
-            </div>
+          <div class="SS-Top">
+              <h1>Projects
+                  <div class="SS-Top2">
+                      <h1> ━━  Projects</h1>
+                  </div>
+              </h1>
+          </div>
 
-            <div class="SS-Bottom">
-                <div class="SSB-Content">
-                    <div class="SSC-Top">
-                        <h1>What We Do</h1>
-                    </div>
-
-                    <div class="SSC-Bottom">
-                    </div>
-                </div>
-
-            </div>
-        </section>
-
+          <div class="SS-Bottom">
+              <div class="PS-Content">
+                  <div class="PSC-Top">
+                      <h1>What We Do</h1>
+                  </div>
+                  <div class="PSC-Bottom">
+                      <div class="swiper">
+                          <div class="swiper-wrapper">
+                              {% if projects %}
+                              {% for project in projects %}
+                              
+                              <div class="PSCB-Container swiper-slide">
+                                  <img src="{{ project.project_picture }}" alt=""> 
+                              </div>
+                              {% endfor %}
+                              {% endif %}
+                          </div>
+                          <div class="swiper-button-prev"></div>
+                          <div class="swiper-button-next"></div>
+                          <div class="swiper-pagination"></div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </section>
 
     </div>
 </div>
+
+<script>
+ var swiper = new Swiper(".swiper", {
+        slidesPerView: 3,
+       
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+        effect: "coverflow",
+          coverflowEffect: {
+              rotate: 50,
+              stretch: 0,
+              depth: 100,
+              modifier: 1,
+              slideShadows: true,
+            },
+
+    });
+</script>
 {% endblock %}
 
